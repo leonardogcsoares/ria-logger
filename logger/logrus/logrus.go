@@ -28,7 +28,7 @@ func New(app string) *Logrus {
 	log.Out = os.Stdout
 
 	// Only log the warning severity or above.
-	log.Level = logrus.WarnLevel
+	log.Level = logrus.InfoLevel
 
 	return &Logrus{l: log, app: app}
 }
