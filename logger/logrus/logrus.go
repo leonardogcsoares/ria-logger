@@ -34,25 +34,45 @@ func New(app string) *Logrus {
 }
 
 // Info level logging
-func (l *Logrus) Info(msg string, fields map[string]interface{}) {
+func (l *Logrus) Info(msg string) {
+	l.l.WithField("app", l.app).Info(msg)
+}
+
+// Warn level logging
+func (l *Logrus) Warn(msg string) {
+	l.l.WithField("app", l.app).Warn(msg)
+}
+
+// Error level logging
+func (l *Logrus) Error(msg string) {
+	l.l.WithField("app", l.app).Error(msg)
+}
+
+// Fatal level logging
+func (l *Logrus) Fatal(msg string) {
+	l.l.WithField("app", l.app).Fatal(msg)
+}
+
+// InfoWithFields level logging
+func (l *Logrus) InfoWithFields(msg string, fields map[string]interface{}) {
 	fields["app"] = l.app
 	l.l.WithFields(fields).Info(msg)
 }
 
-// Warn level logging
-func (l *Logrus) Warn(msg string, fields map[string]interface{}) {
+// WarnWithFields level logging
+func (l *Logrus) WarnWithFields(msg string, fields map[string]interface{}) {
 	fields["app"] = l.app
 	l.l.WithFields(fields).Warn(msg)
 }
 
-// Error level logging
-func (l *Logrus) Error(msg string, fields map[string]interface{}) {
+// ErrorWithFields level logging
+func (l *Logrus) ErrorWithFields(msg string, fields map[string]interface{}) {
 	fields["app"] = l.app
 	l.l.WithFields(fields).Error(msg)
 }
 
-// Fatal level logging
-func (l *Logrus) Fatal(msg string, fields map[string]interface{}) {
+// FatalWithFields level logging
+func (l *Logrus) FatalWithFields(msg string, fields map[string]interface{}) {
 	fields["app"] = l.app
 	l.l.WithFields(fields).Fatal(msg)
 }
