@@ -2,11 +2,11 @@ package logger
 
 // Logger interface to RIA apps
 type Logger interface {
-	Info(app, msg string, fields map[string]interface{})
-	Error(app, msg string, fields map[string]interface{})
-	Warn(app, msg string, fields map[string]interface{})
-	Fatal(app, msg string, fields map[string]interface{})
-	SetEmailHook(app string, ec EmailConfig) error
+	Info(msg string, fields map[string]interface{})
+	Error(msg string, fields map[string]interface{})
+	Warn(msg string, fields map[string]interface{})
+	Fatal(msg string, fields map[string]interface{})
+	SetEmailHook(ec EmailConfig) error
 }
 
 // EmailConfig for setting up email hook

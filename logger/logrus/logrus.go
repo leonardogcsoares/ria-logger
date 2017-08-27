@@ -11,11 +11,12 @@ import (
 
 // Logrus is the wrapper to the actual Logrus implementation
 type Logrus struct {
-	l *logrus.Logger
+	l   *logrus.Logger
+	app string
 }
 
 // New returns an instance to the wrapper to the Logrus logger
-func New() *Logrus {
+func New(app string) *Logrus {
 
 	var log = logrus.New()
 
@@ -29,37 +30,37 @@ func New() *Logrus {
 	// Only log the warning severity or above.
 	log.Level = logrus.WarnLevel
 
-	return &Logrus{l: log}
+	return &Logrus{l: log, app: app}
 }
 
 // Info level logging
-func (l *Logrus) Info(app, msg string, fields map[string]interface{}) {
-	fields["app"] = app
+func (l *Logrus) Info(msg string, fields map[string]interface{}) {
+	fields["app"] = l.app
 	l.l.WithFields(fields).Info(msg)
 }
 
 // Warn level logging
-func (l *Logrus) Warn(app, msg string, fields map[string]interface{}) {
-	fields["app"] = app
+func (l *Logrus) Warn(msg string, fields map[string]interface{}) {
+	fields["app"] = l.app
 	l.l.WithFields(fields).Warn(msg)
 }
 
 // Error level logging
-func (l *Logrus) Error(app, msg string, fields map[string]interface{}) {
-	fields["app"] = app
+func (l *Logrus) Error(msg string, fields map[string]interface{}) {
+	fields["app"] = l.app
 	l.l.WithFields(fields).Error(msg)
 }
 
 // Fatal level logging
-func (l *Logrus) Fatal(app, msg string, fields map[string]interface{}) {
-	fields["app"] = app
+func (l *Logrus) Fatal(msg string, fields map[string]interface{}) {
+	fields["app"] = l.app
 	l.l.WithFields(fields).Fatal(msg)
 }
 
 // SetEmailHook sets an email hook to Logrus for sending error messages
-func (l *Logrus) SetEmailHook(app string, ec logger.EmailConfig) error {
+func (l *Logrus) SetEmailHook(ec logger.EmailConfig) error {
 	hook, err := logrus_mail.NewMailAuthHook(
-		app,
+		l.app,
 		"smtp.gmail.com",
 		587,
 		ec.From,
