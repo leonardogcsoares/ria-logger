@@ -3,6 +3,7 @@ package logrus
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/leonardogcsoares/ria-logger/logger"
 	"github.com/sirupsen/logrus"
@@ -35,45 +36,65 @@ func New(app string) *Logrus {
 
 // Info level logging
 func (l *Logrus) Info(msg string) {
-	l.l.WithField("app", l.app).Info(msg)
+	fields := logrus.Fields{
+		"app":  l.app,
+		"time": time.Now().String(),
+	}
+	l.l.WithFields(fields).Info(msg)
 }
 
 // Warn level logging
 func (l *Logrus) Warn(msg string) {
-	l.l.WithField("app", l.app).Warn(msg)
+	fields := logrus.Fields{
+		"app":  l.app,
+		"time": time.Now().String(),
+	}
+	l.l.WithFields(fields).Warn(msg)
 }
 
 // Error level logging
 func (l *Logrus) Error(msg string) {
-	l.l.WithField("app", l.app).Error(msg)
+	fields := logrus.Fields{
+		"app":  l.app,
+		"time": time.Now().String(),
+	}
+	l.l.WithFields(fields).Error(msg)
 }
 
 // Fatal level logging
 func (l *Logrus) Fatal(msg string) {
-	l.l.WithField("app", l.app).Fatal(msg)
+	fields := logrus.Fields{
+		"app":  l.app,
+		"time": time.Now().String(),
+	}
+	l.l.WithFields(fields).Fatal(msg)
 }
 
 // InfoWithFields level logging
 func (l *Logrus) InfoWithFields(msg string, fields map[string]interface{}) {
 	fields["app"] = l.app
+	fields["time"] = time.Now().String()
 	l.l.WithFields(fields).Info(msg)
 }
 
 // WarnWithFields level logging
 func (l *Logrus) WarnWithFields(msg string, fields map[string]interface{}) {
 	fields["app"] = l.app
+	fields["time"] = time.Now().String()
 	l.l.WithFields(fields).Warn(msg)
 }
 
 // ErrorWithFields level logging
 func (l *Logrus) ErrorWithFields(msg string, fields map[string]interface{}) {
 	fields["app"] = l.app
+	fields["time"] = time.Now().String()
 	l.l.WithFields(fields).Error(msg)
 }
 
 // FatalWithFields level logging
 func (l *Logrus) FatalWithFields(msg string, fields map[string]interface{}) {
 	fields["app"] = l.app
+	fields["time"] = time.Now().String()
 	l.l.WithFields(fields).Fatal(msg)
 }
 
